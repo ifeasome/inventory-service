@@ -1,7 +1,11 @@
-const router = require('express').Router();
+const deviceController = require('./devices');
+const modelController = require('./models');
 
-const apiRoutes = require('./api');
+module.exports = (client) => {
+  deviceController.getAll(client);
+  modelController.getAll(client);
 
-router.use('/api', apiRoutes);
-
-module.exports = router;
+  client.on('message', (message) => {
+    console.log(message);
+  });
+};
